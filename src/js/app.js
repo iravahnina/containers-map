@@ -1,12 +1,12 @@
 export default class ErrorRepository {
     constructor() {
-        this.repository = new Map([
-            ['1', 'Персонаж уже существует'],
-            ['2', 'Неизвестная ошибка'],
-          ]);
+      this.errors = new Map();
     }
-      
+  
     translate(code) {
-        return this.repository.get(code) || 'Unknown error';
+      if (this.errors.has(code)) {
+        return this.errors.get(code);
+      }
+      return 'Unknown error';
     }
-}
+  }

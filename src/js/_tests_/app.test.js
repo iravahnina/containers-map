@@ -1,13 +1,14 @@
 import ErrorRepository from '../app';
 
-test('Ошибка 1', () => {
-    const ErrorRepository = new ErrorRepository();
-    const recieved = ErrorRepository.translate('1');
-    expect(recieved).toBe('Персонаж уже существует');
+const repository = new ErrorRepository();
+repository.errors.set(404, 'Not Found');
+repository.errors.set(500, 'Internal Server Error');
+repository.errors.set(400, 'Bad Request');
+
+test('error in base', () => {
+  expect(repository.translate(500)).toBe('Internal Server Error');
 });
 
-test('Ошибка 2', () => {
-    const ErrorRepository = new ErrorRepository();
-    const recieved = ErrorRepository.translate('2');
-    expect(recieved).toBe('Неизвестная ошибка');
+test('no error in base', () => {
+  expect(repository.translate(501)).toBe('Unknown error');
 });
